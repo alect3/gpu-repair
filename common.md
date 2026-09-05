@@ -44,7 +44,9 @@ Known values so far:
 
 | Part       | Value    | Notes                                        |
 |------------|----------|----------------------------------------------|
-| Resistor 1 | 1.5 kohm | In place, same on both boards                |
+| Resistor array | 2 x 1.5 kohm | Original part. Replaced with two discrete 1.5 kohm on both boards |
+| Discrete R1 | 1.5 kohm | Reads 1.5 kohm in place on both boards      |
+| Discrete R2 | 1.5 kohm | Reads 1.0 kohm in place on A (parallel path), 0 ohm on B |
 | Cap 1      | ?        | Reads 0 ohm in place on both (net shorted)   |
 | Cap 2      | ?        | Reads 0 ohm in place on both (net shorted)   |
 
