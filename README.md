@@ -22,6 +22,8 @@ See [common.md](common.md) for issues seen on more than one board.
 General reference under `notes/`:
 
 - [notes/fuses.md](notes/fuses.md): where the input fuses are and how to test them.
+- [notes/gs9216.md](notes/gs9216.md): the small-rail buck regulator, pinout and how to test it.
+- `notes/datasheets/`: saved datasheets.
 
 ## Conventions
 
