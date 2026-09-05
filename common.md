@@ -74,18 +74,16 @@ Same setup for both: card on a powered riser, ATX PSU on the 8-pins, no PC.
 | Point                                | Board A     | Board B        |
 |--------------------------------------|-------------|----------------|
 | 12V at both 8-pins                   | 12V         | 12V            |
-| Bottom right inductor (5V rail)      | 0V          | about 35 mV    |
+| Bottom right inductor (5V rail)      | about 30 mV | about 35 mV    |
 | Bottom left inductor (assumed 1.8V)  | about 300 mV| about 300 mV   |
 | Top left GS9216 inductor             | 0V          | 0V             |
-| 5V regulator IC on the back          | warm        | barely, if at all |
+| 5V regulator IC on the back          | warm after a long run | barely, short run |
 
 Both boards fail the same way: 12V arrives, 5V never comes up, and every
 rail downstream stays dead. The 300 mV on the 1.8V inductor is identical,
 so it is leakage into a rail whose regulator has no input, not a fault of
 its own.
 
-The only difference is the 5V regulator IC: warm on A, cool on B. B's 5V
-short is hard enough (a few tens of millivolts) that the regulator is
-probably tripping its current limit immediately and staying off, so it
-does not heat. A's regulator is working harder against its short, or is
-itself the thing that is damaged and dissipating.
+There is no real difference. Board A's "warm IC" was after a long run and
+its 5V rail also sits at about 30 mV. Both boards have a hard short on the
+5V net and a regulator sitting in current limit. Identical fault.
