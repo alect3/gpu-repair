@@ -21,9 +21,14 @@ Both boards have a 5V fault at this spot:
 - Board A: 5V at 0V, regulator IC on the back gets warm when powered.
   Re-fitted resistor reads 1.5 kohm.
 
+Both re-fitted capacitors read 0 ohm in place on both boards. So the 5V
+net is shorted to ground on both cards, and in-place readings of any part
+on that net are meaningless until it is lifted.
+
 So the resistor is 1.5 kohm and the parts belong to the 5V regulator.
-Whatever knocked them off hit the same regulator on both cards. Suspect the
-IC itself or the pads and traces around it on both.
+Whatever knocked them off hit the same regulator on both cards. The short
+is either a cracked cap (one per board would be enough) or the regulator
+IC itself. Board A's IC runs warm, which favours the IC there.
 
 Known values so far:
 
