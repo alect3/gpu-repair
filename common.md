@@ -9,9 +9,21 @@ on each board, which suggests a manufacturing or handling weakness rather
 than a one-off. Both sets were re-soldered on 2026-09-05 before any
 testing began.
 
-Board A reads clean on 5V with the parts back on. Board B has a 5V short,
-and the re-fitted resistor on B reads 0 ohm where A reads 1.5 kohm. So the
-resistor is 1.5 kohm and sits on the 5V circuit.
+Location: front of the board, bottom right, beside a small inductor. The
+regulator IC for that inductor is on the back, directly behind. On a
+similar layout (Inno3D 3090, GPU Solutions video "The Mysterious Short
+Circuit Fix", https://www.youtube.com/watch?v=cXy12uUIkgk) that inductor is
+the 5V rail. Different vendor, so use as a guide, not a map.
+
+Both boards have a 5V fault at this spot:
+
+- Board B: 5V shorted to ground. Re-fitted resistor reads 0 ohm.
+- Board A: 5V at 0V, regulator IC on the back gets warm when powered.
+  Re-fitted resistor reads 1.5 kohm.
+
+So the resistor is 1.5 kohm and the parts belong to the 5V regulator.
+Whatever knocked them off hit the same regulator on both cards. Suspect the
+IC itself or the pads and traces around it on both.
 
 Known values so far:
 
