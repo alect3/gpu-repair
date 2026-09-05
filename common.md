@@ -4,7 +4,7 @@ Issues observed on more than one board.
 
 ## Missing components (both boards)
 
-On both boards, two capacitors and a resistor had fallen off. Same location
+On both boards, two capacitors and two resistors had fallen off. Same location
 on each board, which suggests a manufacturing or handling weakness rather
 than a one-off. Both sets were re-soldered on 2026-09-05 before any
 testing began.
@@ -17,26 +17,30 @@ the 5V rail. Different vendor, so use as a guide, not a map.
 
 Both boards have a 5V fault at this spot:
 
-- Board B: 5V shorted to ground. Re-fitted resistor reads 0 ohm.
+- Board B: 5V shorted to ground. Re-fitted resistors read 1.5 kohm and
+  0 ohm in place.
 - Board A: 5V at 0V, regulator IC on the back gets warm when powered.
-  Re-fitted resistor reads 1.5 kohm.
+  Re-fitted resistors read 1.5 kohm and 1.0 kohm in place.
 
 Both re-fitted capacitors read 0 ohm in place on both boards. So the 5V
 net is shorted to ground on both cards, and in-place readings of any part
 on that net are meaningless until it is lifted.
 
-So the resistor is 1.5 kohm and the parts belong to the 5V regulator.
+So the resistors are 1.5 kohm and 1.0 kohm and the parts belong to the 5V
+regulator. The 1.0 kohm position is the only reading that differs between
+the boards.
 Whatever knocked them off hit the same regulator on both cards. The short
 is either a cracked cap (one per board would be enough) or the regulator
 IC itself. Board A's IC runs warm, which favours the IC there.
 
 Known values so far:
 
-| Part      | Value    | Notes                                  |
-|-----------|----------|----------------------------------------|
-| Resistor  | 1.5 kohm | Measured in place on Board A           |
-| Cap 1     | ?        |                                        |
-| Cap 2     | ?        |                                        |
+| Part       | Value    | Notes                                        |
+|------------|----------|----------------------------------------------|
+| Resistor 1 | 1.5 kohm | In place, same on both boards                |
+| Resistor 2 | 1.0 kohm | In place on Board A. Reads 0 ohm on Board B  |
+| Cap 1      | ?        | Reads 0 ohm in place on both (net shorted)   |
+| Cap 2      | ?        | Reads 0 ohm in place on both (net shorted)   |
 
 TODO:
 - Identify the reference designators of the missing parts.
