@@ -66,3 +66,26 @@ the board design, not a fault. Most likely the slot 12V feeds a separate
 group of phases or goes through its own switch. Do not chase this.
 
 The 8-pin 12V pins do beep through to the core VRM on both boards.
+
+## Powered signature (2026-09-05)
+
+Same setup for both: card on a powered riser, ATX PSU on the 8-pins, no PC.
+
+| Point                                | Board A     | Board B        |
+|--------------------------------------|-------------|----------------|
+| 12V at both 8-pins                   | 12V         | 12V            |
+| Bottom right inductor (5V rail)      | 0V          | about 35 mV    |
+| Bottom left inductor (assumed 1.8V)  | about 300 mV| about 300 mV   |
+| Top left GS9216 inductor             | 0V          | 0V             |
+| 5V regulator IC on the back          | warm        | barely, if at all |
+
+Both boards fail the same way: 12V arrives, 5V never comes up, and every
+rail downstream stays dead. The 300 mV on the 1.8V inductor is identical,
+so it is leakage into a rail whose regulator has no input, not a fault of
+its own.
+
+The only difference is the 5V regulator IC: warm on A, cool on B. B's 5V
+short is hard enough (a few tens of millivolts) that the regulator is
+probably tripping its current limit immediately and staying off, so it
+does not heat. A's regulator is working harder against its short, or is
+itself the thing that is damaged and dissipating.
