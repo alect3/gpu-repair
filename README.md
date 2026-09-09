@@ -10,8 +10,8 @@ way to tell them apart is the serial number.
 
 | Board | Serial       | Status                  | Notes                              |
 |-------|--------------|-------------------------|------------------------------------|
-| A     | 0089973886   | 5V short cleared, untested powered | [boards/A-0089973886.md](boards/A-0089973886.md) |
-| B     | 0091224540   | 5V short cleared, untested powered | [boards/B-0091224540.md](boards/B-0091224540.md) |
+| A     | 0089973886   | 5V short cleared; U15 missing, 1.5k resistors still on its pads | [boards/A-0089973886.md](boards/A-0089973886.md) |
+| B     | 0091224540   | 5V+1.8V up, PEX dead: U15 (5V supervisor) missing, pads cleared, test resistor next | [boards/B-0091224540.md](boards/B-0091224540.md) |
 
 ## Common findings
 
