@@ -23,6 +23,7 @@ General reference under `notes/`:
 
 - [notes/fuses.md](notes/fuses.md): where the input fuses are and how to test them.
 - [notes/gs9216.md](notes/gs9216.md): the small-rail buck regulator, pinout and how to test it.
+- [notes/rails.md](notes/rails.md): expected resistance per rail, and where the small regulators sit.
 - `notes/datasheets/`: saved datasheets.
 
 ## Conventions
