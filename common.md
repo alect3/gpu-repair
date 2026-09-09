@@ -119,3 +119,32 @@ by itself enough for no link and for core/memory staying off. Identical on
 both boards, which points at a common enable gate rather than two dead
 chips. Next: the GS9216 pin sequence in notes/gs9216.md (AIN, VCC, EN,
 output) and a continuity trace of where EN comes from.
+
+## GS9216 EN network (2026-09-09, evening, board in x299)
+
+GS9216 (top left, front) powered: pin 7 AIN 12V, pin 21 VCC 5V, pin 2 EN
+1.5V, pin 3 PFM 1.3V, output 0V. The chip is alive; EN sits just under the
+1.6V rising threshold, so it never starts. That is the whole remaining
+fault on this board.
+
+Continuity from pin 2, unpowered: direct beep to ONE END of ONE of the two
+discrete 1.5 kohm resistors fitted in place of the array, the resistor
+nearest the top edge of the board. No beep to the 3.3V cap, 5V inductor,
+12V pins, or pin 1 PGOOD. Resistance from pin 2: 10k to the 1.8V
+inductor (lowest, so EN's pull-up is about 10k from the 1.8V rail, i.e.
+PEX is sequenced after 1.8V by design), 11k to ground, 12.6k to 5V, 15k
+to the 3.3V cap, 17k to pin 3.
+
+So EN should sit at 1.8V and is being loaded down by 0.3V, and the only
+direct connection to it is the fitted 1.5k. Working theory: the discrete
+resistors were placed across pads the original array kept separate, so
+one of them now loads EN. Same replacement on both boards explains the
+identical 0V on both GS9216s.
+
+Next: powered volts at both ends of both discretes; continuity from the
+far end of the EN resistor; lift the EN end of that resistor and re-read
+EN (expect 1.8, then the GS9216 inductor should come up). Fallback: force
+EN with 10k from pin 21 to pin 2. The 5V regulator IC (back, behind the
+bottom right inductor) marking is still unrecorded; if the EN resistor's
+far end lands on one of its pins, the array was wiring EN into the 5V
+power-good.
