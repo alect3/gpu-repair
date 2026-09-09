@@ -292,3 +292,18 @@ measure all six pad pairs; ~1.5k on some pair = the board, all high/OL =
 the part had 1.5k internally between two pins. Also photograph the bare
 540 footprint: is the centre pad a real fifth pad (DFN IC) or ground fill
 under an array?
+
+Resolved (2026-09-10): on 540's bare U15 pads, top-right (5V) to the
+bottom-left ground pad reads 1.5k with nothing fitted. That is the 5V
+rail's own resistance to ground, and it is what was measured "across the
+part" originally. So U15 was an IC; the 1.5k array reading was the board.
+Top-right to top-left reads 20k (the two nets' separate paths to ground),
+no direct link.
+
+State at end of session: 5V short fixed, 5V + 1.8V + MCU 3.1V up, GS9216
+alive (AIN 12V, VCC 5V) with EN stuck at 1.5V under the 1.6V threshold,
+PEX dead, card never links. U15 = missing 1 mm LDO, output voltage and
+load unknown. First thing next session: force GS9216 EN (1.5k from the
+pin-21 VCC cap to the pin-2 end of the EN resistor), boot in the bus-65
+slot, check inductor + lspci. That tells whether the dead enable is the
+whole fault or whether U15's rail is also needed.
