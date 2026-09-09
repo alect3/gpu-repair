@@ -321,3 +321,21 @@ Next: which pin of the 1.8V GS9216 the top-left net lands on (pin 21 VCC
 would fit a 1.5 mA load at 2.7V), that pin's powered voltage, this chip's
 inductor / pin 2 / pin 1 powered, and U811's six pins: powered voltages
 + continuity to U15 top-left, 5V, MCU 3.1V, PEX GS9216 pin 2.
+
+## ROOT CAUSE CANDIDATE (2026-09-10): U15 = 5V load switch feeding VCC of the 1.8V GS9216
+
+U15 top-left net lands on the top edge of the 1.8V GS9216, "third from
+the left", i.e. pin 21 VCC (counterclockwise from the dot). VCC is the
+chip's ~5V control/driver supply; the PEX GS9216 has 5V on its pin 21.
+With the 1.5k fitted 5V->top-left, this VCC sat at 2.7V (the 1.5 mA
+load): the 1.8V regulator limped (300 mV / 1.8V readings, no power-good),
+so the PEX enable downstream never asserted. U15 = 5V load switch
+(IN 5V, OUT -> VCC net, EN 470k pull-up to 3.3V, GND), 1 mm 4-pad.
+
+Verify on 540 (resistors off): 1.8V inductor AND that pin 21 should both
+read 0V now. Fix: 0 ohm 0603 across U15 top-right and top-left (hard 5V
+onto the VCC net; the switch's EN was tied high anyway). Beep top-left
+to U811's pins first (if U811's supply is on this net it also gets 5V,
+fine for SOT-23 logic). Then boot in the bus-65 slot and read 1.8V
+inductor, 1.8V GS9216 pin 21, PEX GS9216 pin 2 + inductor, core cap.
+Same fix on 886 after its resistors come off.
