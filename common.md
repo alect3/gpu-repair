@@ -174,3 +174,25 @@ MCU caps to the two re-fitted caps, 5V inductor, slot 3.3V; find the 3.3V
 LDO feeding the MCU and read its input (expect 5V) and output (expect
 3.3V). If the MCU itself is dead, a replacement needs Zotac's firmware:
 check Board B's MCU supply net and whether it is alive before anything.
+
+## U15 is a missing IC, not a resistor array (2026-09-09, late)
+
+Pre-rework photo shows the boxed silkscreen region U15 beside the mounting
+hole: an empty cap footprint (top), the brown cap (middle), and at the
+bottom a small dark 4-pad body, which is U15 itself. Footprint is 2 + 2
+pads with a centre ground pad: DFN-4 with exposed pad. The "resistor
+array" was this IC. Both boards lost it (and the neighbour cap) to the
+same standoff at that mounting hole; the original parts are gone on both.
+
+Top right pad is 5V (input). Two discrete 1.5k resistors are currently on
+its pads on both boards and must come off. Working theory: U15 is the
+3.3V LDO for the HT32F52241 MCU (IN 5V, OUT to the MCU supply cap, EN,
+GND + centre). The MCU has 0V on its caps, which is the remaining fault.
+
+Next (office): lift both resistors on both boards; map the three unknown
+U15 pads against ground, the MCU supply cap and both brown caps; MCU
+supply cap to ground resistance (kohm = alive, ohm = shorted); then a
+temporary jumper from the slot 3.3V cap to the MCU supply cap, card in
+x299, and read MCU caps / GS9216 pin 2 / GS9216 inductor / core caps.
+Fix: any 3.3V LDO (SOT-23-5 dead-bugged with three wires, or a 1x1 DFN-4
+matching the pad map), one per board.
