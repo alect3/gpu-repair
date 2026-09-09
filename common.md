@@ -87,3 +87,35 @@ its own.
 There is no real difference. Board A's "warm IC" was after a long run and
 its 5V rail also sits at about 30 mV. Both boards have a hard short on the
 5V net and a regulator sitting in current limit. Identical fault.
+
+## Powered signature after the 5V rework (2026-09-09, evening)
+
+Setup: card in x299, slot-6 riser root port B, host booted. A known-good
+Gigabyte 3090 links x4 in the same position, so slot power and PERST#
+release are proven. The BIOS hides a root port whose link never trains,
+so a Zotac board here simply does not appear in lspci: no link at all.
+
+| Point                              | Reading                       |
+|------------------------------------|-------------------------------|
+| 12V at the 8-pins                  | 12V                           |
+| 5V, bottom right inductor          | 5V (was 30 mV before rework)  |
+| 3.3V, small cap behind the fingers | 3.08V                         |
+| 1.8V, bottom left inductor         | 1.8V (was 300 mV)             |
+| Top left GS9216 inductor           | 0V, both boards               |
+| Core caps behind the die           | 0V                            |
+| Memory caps                        | 0V                            |
+| GS9216 output to ground, unpowered | about 5 ohm (not a short)     |
+
+One board was first measured with a front waterblock fitted: the 1.8V
+inductor read 300 mV until the block came off, then 1.8V. Whether the
+block was shorting the 1.8V net or the rail simply had not started on that
+power-up was not separated. Both boards were then tried bare in the same
+slot with a fan on the die: same readings, neither links.
+
+So the 5V fix moved the chain one stage: 5V and 1.8V now run. The chain
+stops at the top left GS9216, whose rail is still unidentified but, with
+1.8V confirmed at the bottom left, is most likely PEX. A dead PEX rail is
+by itself enough for no link and for core/memory staying off. Identical on
+both boards, which points at a common enable gate rather than two dead
+chips. Next: the GS9216 pin sequence in notes/gs9216.md (AIN, VCC, EN,
+output) and a continuity trace of where EN comes from.
