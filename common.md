@@ -260,3 +260,27 @@ evidence, so the connection to EN is unproven either way. Decisive test:
 boot, read GS9216 pin 2 (>1.6V) and inductor (~1.0-1.1V). If pin 2 stays
 at 1.5, move the 10k to the pin-2 end of the small resistor at EN that
 runs toward the 1.8V inductor, bypassing U15 entirely.
+
+## CORRECTION (2026-09-10): U15 top-left does NOT drive GS9216 EN
+
+One of the two discrete 1.5k resistors had been fitted from U15 top-right
+(5V) to top-left the whole time, holding top-left at 2.7V, while GS9216 EN
+read 1.5V. So top-left is not the EN driver; the earlier brief beep was a
+probe slip. The "5V supervisor" reading of U15 is withdrawn.
+
+2.7V through 1.5k = ~1.5 mA draw, i.e. an IC supply load on that net.
+Revised: U15 is a 1 mm X2SON-4 class LDO (IN top-right 5V, GND, EN
+bottom-right with 470k pull-up, OUT top-left) feeding a small logic
+supply for an as-yet-unfound part. Output voltage UNKNOWN; a load that
+drew 1.5 mA at 2.7V was probably over-driven, so the rail may be lower
+(1.8V?). Do not fit a 3.3V LDO until the load is identified.
+
+Decisive next test, independent of U15: force GS9216 EN directly. Tack a
+1.5k from the AIN (pin 7) 5V... correction: from the 5V net (e.g. U15
+top-right or the VCC pin 21 cap) to the pin-2 end of the small resistor
+on the EN node (the one running toward the 1.8V inductor). EN ~4.4V.
+Boot in the bus-65 slot: inductor ~1.0-1.1V + card in lspci = raised EN
+is the whole story (permanent fix: 10k from 5V to EN, or U15 once known);
+inductor up but no card = something downstream also dead (U15 rail);
+EN 4.4 but inductor 0 = GS9216 dead. To identify U15's load: beep top-left
+to the pins of every tiny 5/6-pin logic part near the GS9216 and U15.
