@@ -25,6 +25,6 @@ mistake it for a short. Compare against the other board instead.
 | Position     | Rail             | Regulator                          |
 |--------------|------------------|------------------------------------|
 | Bottom right | 5V               | inductor only; the IC behind it on the back is the HT32F52241 MCU, not the regulator |
-| Bottom left  | 1.8V (assumed)   | not yet identified                 |
-| Top left     | unknown, 1.8V or PEX | GS9216, see gs9216.md          |
+| Bottom left  | 1.8V             | GS9216 (marked DNXE), its VCC pin 21 fed from 5V through U15, a load switch that is missing on both boards |
+| Top left     | PEX (most likely) | GS9216, see gs9216.md; EN sits at 1.5V while 1.8V is down |
 | Top row, full size choke | probably PEX | full phase                 |

@@ -1,6 +1,9 @@
 # Common findings
 
-Issues observed on more than one board.
+Issues observed on more than one board. This is a working log in date
+order, including guesses that were later withdrawn; each is corrected in a
+later section rather than edited. For the current understanding, read the
+README first.
 
 ## Missing components (both boards)
 
