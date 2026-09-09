@@ -10,8 +10,8 @@ way to tell them apart is the serial number.
 
 | Board | Serial       | Status                  | Notes                              |
 |-------|--------------|-------------------------|------------------------------------|
-| A     | 0089973886   | Dead, no power at all   | [boards/A-0089973886.md](boards/A-0089973886.md) |
-| B     | 0091224540   | Short on 5V rail        | [boards/B-0091224540.md](boards/B-0091224540.md) |
+| A     | 0089973886   | 5V short cleared, untested powered | [boards/A-0089973886.md](boards/A-0089973886.md) |
+| B     | 0091224540   | 5V short cleared, untested powered | [boards/B-0091224540.md](boards/B-0091224540.md) |
 
 ## Common findings
 
