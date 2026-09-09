@@ -196,3 +196,35 @@ temporary jumper from the slot 3.3V cap to the MCU supply cap, card in
 x299, and read MCU caps / GS9216 pin 2 / GS9216 inductor / core caps.
 Fix: any 3.3V LDO (SOT-23-5 dead-bugged with three wires, or a 1x1 DFN-4
 matching the pad map), one per board.
+
+## U15 pad map (2026-09-09, night). U15 is NOT the MCU's regulator.
+
+Corrections: the MCU (HT32F52241) IS powered, 3.1V on its own supply cap
+(slot 3.3V, which reads 3.08 behind the fingers). The two brown caps at
+U15 are on U15's INPUT net and read 5V powered; the earlier "MCU caps 0V"
+was those caps probed on the ground end. The MCU supply cap is a smaller
+cap beside the MCU and does not connect to any U15 pad.
+
+U15 footprint: 2 + 2 pads with a centre ground pad (DFN-4 with EP),
+"top" = PCIe-slot end of the card:
+
+| Pad          | Reading                              | Role         |
+|--------------|--------------------------------------|--------------|
+| top right    | 5V, both brown caps on it            | IN           |
+| bottom right | 2.9V powered; 470k to the 3.1 net,   | EN, weak     |
+|              | nothing else (2.9 = 3.1 via 470k     | pull-up      |
+|              | loaded by the meter)                 |              |
+| top left     | 0V                                   | OUT (dead)   |
+| bottom left  | ground                               | GND          |
+| centre       | ground                               | GND / EP     |
+
+So U15 was a small regulator or load switch from 5V, enabled by default,
+whose output rail is now dead. Whatever sits on that rail is what the
+sequencing is waiting on; the MCU holds GS9216 EN at the 1.5V divider
+level. Next: from the top-left pad, resistance to ground (expect a real
+load) and continuity to GS9216 pins 2/3 and its caps, the 3.08 cap, the
+1.8V inductor, MCU pins, BIOS EEPROM VCC. Test: jumper the 3.1 net onto
+the top-left pad in-slot and watch GS9216 EN / inductor. Fix if it works:
+3.3V LDO, IN top-right, OUT top-left, GND centre, EN bottom-right; same
+on Board B. Resistor on 5V that beeped to GS9216 pin 1: pin 1 is on the
+5V net directly, so the GS9238-derived pinout is wrong for pin 1 at least.
