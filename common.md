@@ -250,3 +250,13 @@ Replacements, one per board:
   5V rail via the 10k/20k divider (crosses 1.6V when 5V reaches ~2.4V).
 Confirmation test either way: GS9216 pin 2 > 1.6V, inductor ~1.0-1.1V,
 core caps behind the die come up, card appears in lspci.
+
+Eliminations (2026-09-10, small hours): top-left U15 pad has NO continuity
+to the BIOS EEPROM supply, so it is not a 3.3V rail. Top-left to GS9216
+pin 2 reads 14k in resistance mode; a single brief beep earlier could not
+be repeated. In-circuit ohms between network nodes are not topology
+evidence, so the connection to EN is unproven either way. Decisive test:
+10k 0603 across top-right (5V) and top-left, card in the bus-65 slot,
+boot, read GS9216 pin 2 (>1.6V) and inductor (~1.0-1.1V). If pin 2 stays
+at 1.5, move the 10k to the pin-2 end of the small resistor at EN that
+runs toward the 1.8V inductor, bypassing U15 entirely.
