@@ -228,3 +228,25 @@ the top-left pad in-slot and watch GS9216 EN / inductor. Fix if it works:
 3.3V LDO, IN top-right, OUT top-left, GND centre, EN bottom-right; same
 on Board B. Resistor on 5V that beeped to GS9216 pin 1: pin 1 is on the
 5V net directly, so the GS9238-derived pinout is wrong for pin 1 at least.
+
+## U15 identified functionally: a 5V supervisor driving GS9216 EN (2026-09-09, night)
+
+Top-left (OUT) pad: 20k to ground, and a brief continuity beep to GS9216
+pin 2 (EN). So U15's output drives the PEX enable node directly, and
+bottom-right (470k pull-up to 3.3V) is its manual-reset / enable input.
+U15 = voltage supervisor on the 5V rail with a push-pull output that goes
+high when 5V is good. With it missing EN sits at the passive 1.5V divider
+level and PEX never starts. Same on both boards. The MCU is not in this
+path (powered, 3.1V, idle).
+
+Original part number unknown (no boardview, parts lost on both boards).
+Replacements, one per board:
+- Proper: TI TPS3840PL46 (or PL42), push-pull active-low reset, 4-pin.
+  VDD -> top-right (5V), RESET -> top-left (EN node), MR -> bottom-right
+  (470k pull-up), GND -> centre. Check the silkscreen outline: 1 mm square
+  = X2SON-4 drops on (match pin order first); 2 mm square = DFN 2x2, so
+  dead-bug the SOT-23-5 version with wires.
+- Equivalent: one 10k 0603 between top-right and top-left. EN follows the
+  5V rail via the 10k/20k divider (crosses 1.6V when 5V reaches ~2.4V).
+Confirmation test either way: GS9216 pin 2 > 1.6V, inductor ~1.0-1.1V,
+core caps behind the die come up, card appears in lspci.
