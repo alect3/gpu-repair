@@ -284,3 +284,11 @@ is the whole story (permanent fix: 10k from 5V to EN, or U15 once known);
 inductor up but no card = something downstream also dead (U15 rail);
 EN 4.4 but inductor 0 = GS9216 dead. To identify U15's load: beep top-left
 to the pins of every tiny 5/6-pin logic part near the GS9216 and U15.
+
+Note (2026-09-10): alec measured 1.5k ACROSS the original U15 part while
+it was still on one board (that is why 2 x 1.5k discretes were fitted).
+Unknown which pad pair. To tell part from board: on 540 (bare pads)
+measure all six pad pairs; ~1.5k on some pair = the board, all high/OL =
+the part had 1.5k internally between two pins. Also photograph the bare
+540 footprint: is the centre pad a real fifth pad (DFN IC) or ground fill
+under an array?
