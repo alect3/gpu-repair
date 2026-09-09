@@ -339,3 +339,14 @@ to U811's pins first (if U811's supply is on this net it also gets 5V,
 fine for SOT-23 logic). Then boot in the bus-65 slot and read 1.8V
 inductor, 1.8V GS9216 pin 21, PEX GS9216 pin 2 + inductor, core cap.
 Same fix on 886 after its resistors come off.
+
+CONFIRMED (2026-09-10): on 540 with the resistors off, the 1.8V inductor
+reads 300 mV (the Sep 5 signature). The 1.8V regulator only runs when
+something feeds its VCC (pin 21) via the U15 output net. Story: Sep 5 =
+5V shorted -> no VCC -> 300 mV; after 5V rework with 1.5k on U15 pads =
+VCC 2.7V -> 1.8V limps, no power-good, PEX EN never asserted; resistors
+off = VCC 0 -> 300 mV again. U15 = 5V load switch, killed by the
+standoff on both boards. FIX: 0 ohm link across U15 top-right and
+top-left (or a clipped resistor lead). Then boot in the bus-65 slot and
+read 1.8V inductor (1.8), PEX GS9216 pin 2 (>1.6), PEX inductor
+(~1.0-1.1), core cap; check lspci.
