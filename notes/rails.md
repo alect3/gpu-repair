@@ -24,7 +24,7 @@ mistake it for a short. Compare against the other board instead.
 
 | Position     | Rail             | Regulator                          |
 |--------------|------------------|------------------------------------|
-| Bottom right | 5V               | IC on the back, behind the inductor |
+| Bottom right | 5V               | inductor only; the IC behind it on the back is the HT32F52241 MCU, not the regulator |
 | Bottom left  | 1.8V (assumed)   | not yet identified                 |
 | Top left     | unknown, 1.8V or PEX | GS9216, see gs9216.md          |
 | Top row, full size choke | probably PEX | full phase                 |

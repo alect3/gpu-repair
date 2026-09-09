@@ -148,3 +148,29 @@ EN with 10k from pin 21 to pin 2. The 5V regulator IC (back, behind the
 bottom right inductor) marking is still unrecorded; if the EN resistor's
 far end lands on one of its pins, the array was wiring EN into the 5V
 power-good.
+
+## The chip behind the bottom right inductor is the MCU, not a regulator (2026-09-09)
+
+Marking HT32F52241: Holtek Cortex-M0+ microcontroller, 2.0 to 3.6V supply,
+sold by GPU repair shops as a graphics-card housekeeping MCU. On this board
+it is the sequencer (and Spectra RGB). Earlier notes calling it "the 5V
+regulator IC" are wrong; the 5V buck's controller is elsewhere.
+
+Powered readings tonight, board in x299:
+
+- MCU decoupling caps (two largish caps beside it, back): 0V. THE MCU HAS
+  NO SUPPLY. This is the remaining fault: no MCU, no PEX enable, no chain.
+- The fitted 1.5k nearest the top edge: one end 5V, other end 2.7V. Its
+  5V-side... correction: the end that beeps is GS9216 PIN 1 (PGOOD), not
+  pin 2. So the array was the 5V pull-ups for power-good lines into the
+  MCU, and the rework is NOT in the GS9216 EN path. EN's 1.5V is the
+  signature of a pin driven from an unpowered MCU.
+- The other fitted 1.5k: 1V on the edge side, 0V (or no reading) on the
+  other.
+
+Next: MCU supply net resistance to ground (kohm = healthy, ohms = MCU
+shorted from the 5V-short episode, when it ran warm); continuity from the
+MCU caps to the two re-fitted caps, 5V inductor, slot 3.3V; find the 3.3V
+LDO feeding the MCU and read its input (expect 5V) and output (expect
+3.3V). If the MCU itself is dead, a replacement needs Zotac's firmware:
+check Board B's MCU supply net and whether it is alive before anything.
