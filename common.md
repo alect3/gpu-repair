@@ -307,3 +307,17 @@ load unknown. First thing next session: force GS9216 EN (1.5k from the
 pin-21 VCC cap to the pin-2 end of the EN resistor), boot in the bus-65
 slot, check inductor + lspci. That tells whether the dead enable is the
 whole fault or whether U15's rail is also needed.
+
+## U15 top-left net traced (2026-09-10)
+
+The U15 top-left (OUT) net goes to a SECOND GS9216 (marked GS9216 DNXE),
+same side of the board, directly opposite the 1.8V inductor, i.e. the
+1.8V regulator, not the PEX one. Beside it is U811, a SOT-23-6 marked
+"CE5", wired into the same cluster: candidate for the PEX enable logic
+(other 3090s derive GS9216 EN from a small logic part). Pin 1 dot on the
+GS9216 is at its top-left corner in the photo; count counterclockwise.
+
+Next: which pin of the 1.8V GS9216 the top-left net lands on (pin 21 VCC
+would fit a 1.5 mA load at 2.7V), that pin's powered voltage, this chip's
+inductor / pin 2 / pin 1 powered, and U811's six pins: powered voltages
++ continuity to U15 top-left, 5V, MCU 3.1V, PEX GS9216 pin 2.
